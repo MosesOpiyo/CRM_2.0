@@ -1,11 +1,19 @@
+import 'package:admin/Routes/routes.dart';
+import 'package:admin/screens/widgets/dashboard/dashboard_screen.dart';
+import 'package:admin/screens/widgets/stock/stock_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class SideMenu extends StatelessWidget {
-  const SideMenu({
-    Key? key,
-  }) : super(key: key);
+class SideMenu extends StatefulWidget {
+  final Function(Widget) onTap;
 
+  const SideMenu({Key? key, required this.onTap}) : super(key: key);
+
+  @override
+  State<SideMenu> createState() => _SideMenuState();
+}
+
+class _SideMenuState extends State<SideMenu> {
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -15,17 +23,24 @@ class SideMenu extends StatelessWidget {
             child: Image.asset("assets/images/logo.png"),
           ),
           DrawerListTile(
-            title: "Dashboard",
+            title: "Sales",
             svgSrc: "assets/icons/menu_dashboard.svg",
-            press: () {},
+            press: () {
+              widget.onTap(DashboardScreen());
+
+              RouteNavigation().navigateToRoute('/Sales');
+            },
           ),
           DrawerListTile(
-            title: "Transaction",
+            title: "Stock",
             svgSrc: "assets/icons/menu_tran.svg",
-            press: () {},
+            press: () {
+              widget.onTap(StockScreen());
+              RouteNavigation().navigateToRoute('/Stock');
+            },
           ),
           DrawerListTile(
-            title: "Task",
+            title: "Suppliers",
             svgSrc: "assets/icons/menu_task.svg",
             press: () {},
           ),
