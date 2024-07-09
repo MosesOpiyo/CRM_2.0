@@ -1,13 +1,9 @@
-import 'package:admin/Routes/routes.dart';
-import 'package:admin/screens/widgets/dashboard/dashboard_screen.dart';
-import 'package:admin/screens/widgets/stock/stock_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 
 class SideMenu extends StatefulWidget {
-  final Function(Widget) onTap;
-
-  const SideMenu({Key? key, required this.onTap}) : super(key: key);
+  const SideMenu({Key? key}) : super(key: key);
 
   @override
   State<SideMenu> createState() => _SideMenuState();
@@ -26,23 +22,22 @@ class _SideMenuState extends State<SideMenu> {
             title: "Sales",
             svgSrc: "assets/icons/menu_dashboard.svg",
             press: () {
-              widget.onTap(DashboardScreen());
-
-              RouteNavigation().navigateToRoute('/Sales');
+              GoRouter.of(context).go('/Sales');
             },
           ),
           DrawerListTile(
             title: "Stock",
             svgSrc: "assets/icons/menu_tran.svg",
             press: () {
-              widget.onTap(StockScreen());
-              RouteNavigation().navigateToRoute('/Stock');
+              GoRouter.of(context).go('/Stock');
             },
           ),
           DrawerListTile(
             title: "Suppliers",
             svgSrc: "assets/icons/menu_task.svg",
-            press: () {},
+            press: () {
+              GoRouter.of(context).go('/Suppliers');
+            },
           ),
           DrawerListTile(
             title: "Documents",

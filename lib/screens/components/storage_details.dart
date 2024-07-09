@@ -1,12 +1,36 @@
+import 'package:admin/API/SupplierService/service.dart';
+import 'package:admin/ResponseModels/supplier_model.dart';
 import 'package:flutter/material.dart';
 
 import '../../constants.dart';
 import 'storage_info_card.dart';
 
-class SupplierDetails extends StatelessWidget {
+class SupplierDetails extends StatefulWidget {
   const SupplierDetails({
     Key? key,
   }) : super(key: key);
+
+  @override
+  State<SupplierDetails> createState() => _SupplierDetailsState();
+}
+
+class _SupplierDetailsState extends State<SupplierDetails> {
+  late List<SupplierModel> suppliers = [];
+
+  getSuppliers() {
+    SUpplierService().getSuppliers().then((value) {
+      setState(() {
+        suppliers = value
+            .map((dynamic supplier) => SupplierModel.fromJson(supplier))
+            .toList();
+      });
+    });
+  }
+
+  void initState() {
+    super.initState();
+    getSuppliers();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -16,34 +40,29 @@ class SupplierDetails extends StatelessWidget {
         color: secondaryColor,
         borderRadius: const BorderRadius.all(Radius.circular(10)),
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            "SUppliers Details",
-            style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.w500,
+      child: Expanded(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              "Suppliers Details",
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.w500,
+              ),
             ),
-          ),
-          SizedBox(height: defaultPadding),
-          StorageInfoCard(
-            title: "Documents Files",
-            numOfFiles: 1328,
-          ),
-          StorageInfoCard(
-            title: "Media Files",
-            numOfFiles: 1328,
-          ),
-          StorageInfoCard(
-            title: "Other Files",
-            numOfFiles: 1328,
-          ),
-          StorageInfoCard(
-            title: "Unknown",
-            numOfFiles: 140,
-          ),
-        ],
+            SizedBox(height: defaultPadding),
+            ListView.builder(
+                shrinkWrap: true,
+                itemCount: suppliers.length,
+                itemBuilder: ((context, index) {
+                  return StorageInfoCard(
+                    title: suppliers[index].name,
+                    numOfDevices: suppliers[index].stockSupply.length,
+                  );
+                })),
+          ],
+        ),
       ),
     );
   }

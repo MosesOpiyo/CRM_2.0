@@ -1,9 +1,8 @@
 import 'package:admin/API/AuthenticationService/AuthToken/auth_token.dart';
 import 'package:admin/API/AuthenticationService/service.dart';
-import 'package:admin/Routes/routes.dart';
-import 'package:admin/screens/main/main_screen.dart';
-
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:go_router/go_router.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -24,6 +23,15 @@ class _LoginState extends State<Login> {
   @override
   void initState() {
     super.initState();
+    isAuthenticated();
+  }
+
+  isAuthenticated() async {
+    final storage = const FlutterSecureStorage();
+    final accessToken = await storage.read(key: 'access_token');
+    if (accessToken!.isNotEmpty) {
+      GoRouter.of(context).go('/Sales');
+    }
   }
 
   void showSnackBar(BuildContext context) {
@@ -177,14 +185,7 @@ class _LoginState extends State<Login> {
                                             {
                                               AuthClass().storeToken(
                                                   response.accessToken),
-                                              RouteNavigation()
-                                                  .navigateToRoute("/Sales"),
-                                              Navigator.pushReplacement(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        MainScreen()),
-                                              )
+                                              GoRouter.of(context).go('/Sales')
                                             }
                                           else
                                             {

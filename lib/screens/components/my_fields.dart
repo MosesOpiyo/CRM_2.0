@@ -7,7 +7,16 @@ import 'file_info_card.dart';
 
 class Overalls extends StatelessWidget {
   final String overalls;
-  const Overalls({Key? key, required this.overalls}) : super(key: key);
+  final Function onpressed;
+  const Overalls({Key? key, required this.overalls, required this.onpressed})
+      : super(key: key);
+
+  supplierButton(overalls) {
+    if (overalls == "Stock Overalls") {
+      return true;
+    }
+    return false;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +38,9 @@ class Overalls extends StatelessWidget {
                       defaultPadding / (Responsive.isMobile(context) ? 2 : 1),
                 ),
               ),
-              onPressed: () {},
+              onPressed: () {
+                onpressed();
+              },
               icon: Icon(Icons.add),
               label: Text("Add New"),
             ),

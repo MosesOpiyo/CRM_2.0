@@ -2,6 +2,7 @@ class ApiConstants {
   static String baseUrl = 'http://192.168.100.11:8000/';
   static String userLogin = 'Authentication/Login';
   static String userProfile = 'Authentication/Profile';
+  static String allSuplliers = 'Stock/AllSuppliers';
   static String allSales = 'Sales/AllSales';
   static String allSalesAtShop = 'Sales/AllSalesAtShop';
   static String allSalesClients = 'Sales/AllSalesClients';

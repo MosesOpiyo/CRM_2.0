@@ -6,11 +6,11 @@ class StorageInfoCard extends StatelessWidget {
   const StorageInfoCard({
     Key? key,
     required this.title,
-    required this.numOfFiles,
+    required this.numOfDevices,
   }) : super(key: key);
 
   final String title;
-  final int numOfFiles;
+  final int numOfDevices;
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +37,7 @@ class StorageInfoCard extends StatelessWidget {
                     overflow: TextOverflow.ellipsis,
                   ),
                   Text(
-                    "$numOfFiles Files",
+                    "$numOfDevices Device(s)",
                     style: Theme.of(context)
                         .textTheme
                         .bodySmall!
