@@ -1,100 +1,63 @@
 class StockModel {
-  StockModel({
-    required this.id,
-    required this.product,
-    required this.units,
-    required this.imeiNumbers,
-    required this.checkedInPersonName,
-    required this.warrantyDuration,
-    required this.price,
-    required this.clients,
-  });
+  StockModel(
+      {required this.id,
+      required this.product,
+      required this.supplier,
+      required this.imei,
+      required this.checkedInPersonName,
+      required this.warrantyDuration,
+      required this.amount,
+      required this.status,
+      required this.dueDate});
   late final int id;
   late final String product;
-  late final int units;
-  late final List<ImeiNumbers> imeiNumbers;
+  late final Supplier supplier;
+  late final int imei;
   late final String checkedInPersonName;
   late final String warrantyDuration;
-  late final int price;
-  late final List<Clients> clients;
+  late final int amount;
+  late final String status;
+  late final String dueDate;
 
   StockModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     product = json['product'];
-    units = json['units'];
-    imeiNumbers = List.from(json['imei_numbers'])
-        .map((e) => ImeiNumbers.fromJson(e))
-        .toList();
+    supplier = Supplier.fromJson(json['supplier']);
+    imei = json['imei'];
     checkedInPersonName = json['checked_in_person_name'];
     warrantyDuration = json['warranty_duration'];
-    price = json['price'];
-    clients =
-        List.from(json['clients']).map((e) => Clients.fromJson(e)).toList();
+    amount = json['amount'];
+    status = json['status'];
+    dueDate = json['credit_due_date'];
   }
 
   Map<String, dynamic> toJson() {
     final _data = <String, dynamic>{};
     _data['id'] = id;
     _data['product'] = product;
-    _data['units'] = units;
+    _data['supplier'] = supplier;
     _data['checked_in_person_name'] = checkedInPersonName;
     _data['warranty_duration'] = warrantyDuration;
-    _data['price'] = price;
-    _data['clients'] = clients.map((e) => e.toJson()).toList();
-    return _data;
-  }
-}
-
-class ImeiNumbers {
-  ImeiNumbers(
-      {required this.imeiNumber, required this.sold, required this.status});
-  late final int imeiNumber;
-  late final bool sold;
-  late final String status;
-
-  ImeiNumbers.fromJson(Map<String, dynamic> json) {
-    imeiNumber = json['imei'];
-    sold = json['sold'];
-    status = json['status'];
-  }
-  Map<String, dynamic> toJson() {
-    final _data = <String, dynamic>{};
-    _data['imei'] = imeiNumber;
-    _data['sold'] = sold;
+    _data['amount'] = amount;
     _data['status'] = status;
+    _data['credit_due_date'] = dueDate;
     return _data;
   }
 }
 
-class Clients {
-  Clients({
-    required this.clientName,
-    required this.clientPhoneNumber,
-    required this.clientEmail,
-    required this.clientLocation,
-    required this.clientPin,
-  });
-  late final String clientName;
-  late final String clientPhoneNumber;
-  late final String clientEmail;
-  late final String clientLocation;
-  late final String clientPin;
+class Supplier {
+  Supplier({required this.name, required this.supplier});
+  late final String name;
+  late final String supplier;
 
-  Clients.fromJson(Map<String, dynamic> json) {
-    clientName = json['client_name'];
-    clientPhoneNumber = json['client_phone_number'];
-    clientEmail = json['client_email'];
-    clientLocation = json['client_location'];
-    clientPin = json['client_pin'];
+  Supplier.fromJson(Map<String, dynamic> json) {
+    name = json['name'];
+    supplier = json['supplier'];
   }
-
   Map<String, dynamic> toJson() {
     final _data = <String, dynamic>{};
-    _data['client_name'] = clientName;
-    _data['client_phone_number'] = clientPhoneNumber;
-    _data['client_email'] = clientEmail;
-    _data['client_location'] = clientLocation;
-    _data['client_pin'] = clientPin;
+    _data['name'] = name;
+    _data['supplier'] = supplier;
     return _data;
   }
 }

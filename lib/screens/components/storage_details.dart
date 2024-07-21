@@ -1,5 +1,5 @@
 import 'package:admin/API/SupplierService/service.dart';
-import 'package:admin/ResponseModels/supplier_model.dart';
+import 'package:admin/ResponseModels/vendor_model.dart';
 import 'package:flutter/material.dart';
 
 import '../../constants.dart';
@@ -15,13 +15,13 @@ class SupplierDetails extends StatefulWidget {
 }
 
 class _SupplierDetailsState extends State<SupplierDetails> {
-  late List<SupplierModel> suppliers = [];
+  late List<VendorModel> suppliers = [];
 
   getSuppliers() {
-    SUpplierService().getSuppliers().then((value) {
+    SupplierService().getSuppliers().then((value) {
       setState(() {
         suppliers = value
-            .map((dynamic supplier) => SupplierModel.fromJson(supplier))
+            .map((dynamic supplier) => VendorModel.fromJson(supplier))
             .toList();
       });
     });
@@ -58,7 +58,7 @@ class _SupplierDetailsState extends State<SupplierDetails> {
                 itemBuilder: ((context, index) {
                   return StorageInfoCard(
                     title: suppliers[index].name,
-                    numOfDevices: suppliers[index].stockSupply.length,
+                    numOfDevices: suppliers[index].products.length,
                   );
                 })),
           ],

@@ -6,12 +6,12 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
 import 'dart:io';
 
-class SupplierService {
+class VendorService {
   final storage = const FlutterSecureStorage();
 
-  Future<List<dynamic>> getSuppliers() async {
+  Future<List<dynamic>> getVendors() async {
     final accessToken = await storage.read(key: 'access_token');
-    var url = Uri.parse(ApiConstants.baseUrl + ApiConstants.allSuplliers);
+    var url = Uri.parse(ApiConstants.baseUrl + ApiConstants.allInStockVendors);
     var response = await http.get(
       url,
       headers: {HttpHeaders.authorizationHeader: "Bearer $accessToken"},

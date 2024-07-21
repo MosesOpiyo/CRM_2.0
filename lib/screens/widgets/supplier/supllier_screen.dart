@@ -35,7 +35,7 @@ class SupplierScreen extends StatelessWidget {
                         overalls: "Supplier's Overalls",
                       ),
                       SizedBox(height: defaultPadding),
-                      StockList(Option: "Suppliers"),
+                      SuppliersList(),
                       if (Responsive.isMobile(context))
                         SizedBox(height: defaultPadding),
                       if (Responsive.isMobile(context)) SupplierDetails(),
